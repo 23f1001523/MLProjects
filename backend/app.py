@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from utils.options import get_dropdown_options
+from IPL.utils.options import get_dropdown_options
 # from utils.churn_predictor import predict_churn
-from utils.ipl_predictor import predict_ipl
-from utils.second_innings_predictor import run_second_innings_prediction
+from IPL.utils.team_winning_predictor import predict_ipl
+from IPL.utils.chasing_team_predictor import run_second_innings_prediction
 # from utils.recommender import recommend_movies
 
 
@@ -27,7 +27,7 @@ def predict_match_winner():
     result = predict_ipl(data)
     return jsonify(result)
 
-@app.route("/api/predict/second_innings", methods=["POST"])
+@app.route("/api/predict/chasingteam", methods=["POST"])
 def second_innings_route():
     try:
         data = request.get_json()

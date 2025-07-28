@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function ChasingTeamPredictor() {
-  const [form, setForm] = useState({
-    chasing_team: "",
+  const [formData, setFormData] = useState({
+    batting_team: "",
+    opponent_team: "",
+    venue: "",
     runs_scored: "",
     overs_played: "",
     wickets_fallen: "",
@@ -11,18 +13,24 @@ function ChasingTeamPredictor() {
     total_overs: 20,
   });
 
-  const [teamList, setTeamList] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const [venues, setVenues] = useState([]);
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/options")
-      .then((res) => res.json())
-      .then((data) => setTeamList(data.teams || []))
-      .catch((err) => console.error("Failed to fetch teams:", err));
+    axios
+      .get("http://localhost:5000/api/options")
+      .then((res) => {
+        setTeams(res.data.teams || []);
+        setVenues(res.data.venues || []);
+      })
+      .catch((err) => {
+        console.error("Error fetching options:", err);
+      });
   }, []);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -30,35 +38,38 @@ function ChasingTeamPredictor() {
     setResult(null);
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/predict/second_innings",
-        form
+        "http://localhost:5000/api/predict/chasingteam",
+        formData
       );
       setResult(res.data);
-    } catch (err) {
-      alert("Prediction failed. Please check your input or server.");
+    } catch (error) {
+      alert("Prediction failed. Check console for details.");
+      console.error(error);
     }
   };
 
   return (
     <div className="container py-5">
-      <div className="card shadow-lg border-0 bg-gradient p-4">
-        <h2 className="text-center mb-4 text-primary fw-bold">
-          🏏 Chasing Team Win/Lose Prediction
-        </h2>
+      <div className="text-center mb-4">
+        <img src="/winlose.jpg" alt="Win/Loss" style={{ height: "80px" }} />
+        <h2 className="text-primary fw-bold">🔮 Chasing Team Win Prediction</h2>
+      </div>
 
+      <div className="card shadow p-4">
         <form onSubmit={handleSubmit}>
           <div className="row g-4">
+            {/* Batting Team */}
             <div className="col-md-6">
-              <label className="form-label">🧢 Chasing Team</label>
+              <label className="form-label fw-semibold">🧢 Chasing Team</label>
               <select
-                name="chasing_team"
+                name="batting_team"
                 className="form-select"
-                value={form.chasing_team}
+                value={formData.batting_team}
                 onChange={handleChange}
                 required
               >
-                <option value="">Select Team</option>
-                {teamList.map((team) => (
+                <option value="">-- Select Team --</option>
+                {teams.map((team) => (
                   <option key={team} value={team}>
                     {team}
                   </option>
@@ -66,75 +77,122 @@ function ChasingTeamPredictor() {
               </select>
             </div>
 
+            {/* Opponent Team */}
             <div className="col-md-6">
-              <label className="form-label">🏃‍♂️ Runs Scored</label>
+              <label className="form-label fw-semibold">🛡️ Opponent Team</label>
+              <select
+                name="opponent_team"
+                className="form-select"
+                value={formData.opponent_team}
+                onChange={handleChange}
+                required
+              >
+                <option value="">-- Select Team --</option>
+                {teams
+                  .filter((team) => team !== formData.batting_team)
+                  .map((team) => (
+                    <option key={team} value={team}>
+                      {team}
+                    </option>
+                  ))}
+              </select>
+            </div>
+
+            {/* Venue */}
+            <div className="col-md-6">
+              <label className="form-label fw-semibold">📍 Match Venue</label>
+              <select
+                name="venue"
+                className="form-select"
+                value={formData.venue}
+                onChange={handleChange}
+                required
+              >
+                <option value="">-- Select Venue --</option>
+                {venues.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Runs Scored */}
+            <div className="col-md-6">
+              <label className="form-label fw-semibold">🏃‍♂️ Runs Scored</label>
               <input
                 type="number"
-                name="runs_scored"
                 className="form-control"
-                placeholder="e.g. 125"
+                name="runs_scored"
+                value={formData.runs_scored}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            {/* Overs Played */}
             <div className="col-md-6">
-              <label className="form-label">⏱️ Overs Played</label>
+              <label className="form-label fw-semibold">⏱️ Overs Played</label>
               <input
                 type="number"
                 step="0.1"
+                className="form-control"
                 name="overs_played"
-                className="form-control"
-                placeholder="e.g. 15.2"
+                value={formData.overs_played}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            {/* Wickets Fallen */}
             <div className="col-md-6">
-              <label className="form-label">💥 Wickets Fallen</label>
+              <label className="form-label fw-semibold">💥 Wickets Fallen</label>
               <input
                 type="number"
+                className="form-control"
                 name="wickets_fallen"
-                className="form-control"
-                placeholder="e.g. 6"
+                value={formData.wickets_fallen}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            {/* Target */}
             <div className="col-md-6">
-              <label className="form-label">🎯 Target Score</label>
+              <label className="form-label fw-semibold">🎯 Target Score</label>
               <input
                 type="number"
+                className="form-control"
                 name="target"
-                className="form-control"
-                placeholder="e.g. 160"
+                value={formData.target}
                 onChange={handleChange}
                 required
               />
             </div>
 
+            {/* Total Overs */}
             <div className="col-md-6">
-              <label className="form-label">📏 Total Overs</label>
+              <label className="form-label fw-semibold">📏 Total Overs</label>
               <input
                 type="number"
-                name="total_overs"
                 className="form-control"
-                value={form.total_overs}
+                name="total_overs"
+                value={formData.total_overs}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
 
-          <div className="d-grid mt-4">
-            <button type="submit" className="btn btn-primary btn-lg">
-              🔍 Predict Outcome
+          <div className="mt-4 text-center">
+            <button type="submit" className="btn btn-primary px-4">
+              ⚡ Predict Outcome
             </button>
           </div>
         </form>
       </div>
 
+      {/* Prediction Result */}
       {result && (
         <div className="card shadow-lg mt-5 border-success bg-white p-4">
           <h4 className="text-success mb-3 fw-bold text-center">
@@ -142,7 +200,7 @@ function ChasingTeamPredictor() {
           </h4>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              🧢 <strong>Chasing Team:</strong> {form.chasing_team}
+              🧢 <strong>Chasing Team:</strong> {formData.batting_team}
             </li>
             <li className="list-group-item">
               📉 <strong>Current Run Rate:</strong>{" "}
@@ -169,7 +227,7 @@ function ChasingTeamPredictor() {
           {result.probability && (
             <div className="mt-4">
               <div className="alert alert-info">
-                <h5>Prediction Result</h5>
+                <h5>📋 Prediction Summary</h5>
                 <p>
                   <strong>Result:</strong>{" "}
                   {result.prediction === 1 ? "Win" : "Lose"}

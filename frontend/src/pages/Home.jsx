@@ -13,9 +13,9 @@ function Home() {
         <div className="col-md-4">
           <div className="card shadow-lg border-0 mb-4 rounded-5">
             <div className="card-body text-center">
-              <h5 className="card-title">Team Winning Predictor</h5>
+              <h5 className="card-title">Winning Team Predictor</h5>
               <p className="card-text">Predict match winners using pre-match stats.</p>
-              <Link to="/predictors/team-win" className="btn btn-primary">Try Now</Link>
+              <Link to="/iplpredictors/team-win" className="btn btn-primary">Try Now</Link>
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@ function Home() {
             <div className="card-body text-center">
               <h5 className="card-title">Chasing Team Prediction</h5>
               <p className="card-text">Predict match outcome while chasing.</p>
-              <Link to="/predictors/chasing-team" className="btn btn-success">Try Now</Link>
+              <Link to="/iplpredictors/chasing-team" className="btn btn-success">Try Now</Link>
             </div>
           </div>
         </div>

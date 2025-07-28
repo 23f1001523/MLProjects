@@ -20,25 +20,9 @@ function Navbar() {
 
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ms-auto">
-          {/* Predictors Dropdown */}
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="predictorsDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Predictors
-            </a>
-            <ul className="dropdown-menu" aria-labelledby="predictorsDropdown">
-              <li><Link className="dropdown-item" to="/predictors/team-win">Team Winning Prediction</Link></li>
-              <li><Link className="dropdown-item" to="/predictors/chasing-team">Chasing Team Prediction</Link></li>
-            </ul>
+           <li className="nav-item">
+            <Link className="nav-link" to="/iplpredictors">IPL Predictor</Link>
           </li>
-
-          {/* Other links */}
           <li className="nav-item">
             <Link className="nav-link" to="/recommenders">Recommenders</Link>
           </li>
