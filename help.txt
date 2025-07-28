@@ -1,0 +1,12 @@
+#backend Setup
+#install
+    flask
+    flask-cors
+    pandas
+    scikit-learn
+
+#Frontend Setup
+
+#create React App in frontend folder
+    npx create-react-app . 
+    npm install react-router-dom bootstrap
