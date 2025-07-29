@@ -8,6 +8,7 @@ from IPL.utils.chasing_team_predictor import run_second_innings_prediction
 from IPL.utils.match_details import getMatchSummary
 from IPL.utils.teams_stats import getTeamSummary
 from IPL.utils.players_stats import get_player_summary
+from Churn_Customers.utils.churn_customer_predictor import predict_churn
 # from utils.recommender import recommend_movies
 
 app = Flask(__name__)
@@ -93,6 +94,16 @@ def match_options():
     
     return jsonify(match_list)
 
+
+@app.route("/api/churn/predict", methods=["POST"])
+def predict_churn_customer():
+    try:
+        data = request.get_json()
+        result = predict_churn(data)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

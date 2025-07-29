@@ -34,7 +34,7 @@ model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
 # Save model and encoders
-with open("ipl/models/team_winning_prediciton_model.pkl", "wb") as f:
+with open("ipl/models/team_winning_prediction_model.pkl", "wb") as f:
     pickle.dump((model, label_encoders, le_winner), f)
 
 print("Model trained and saved.")

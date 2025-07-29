@@ -13,6 +13,7 @@ import IPLPage from "./pages/IPLPage"; // <-- Make sure this is imported
 import MatchSummary from "./components/MatchSummary";
 import TeamStats from "./components/TeamStats";
 import PlayerStats from "./components/PlayerStats";
+import ChurnCusotmers from "./components/ChurnCustromers";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route path="playerstats" element={<PlayerStats />} />
           </Route>
           <Route path="/recommenders" element={<Recommenders />} />
-          <Route path="/documentation" element={<Documentation />} />
+          <Route path="/churnpredictor" element={<ChurnCusotmers />} />
         </Routes>
       </div>
     </Router>

@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 
 # Load model and encoders
-model, label_encoders, le_winner = pickle.load(open("IPL/models/ipl_model.pkl", "rb"))
+model, label_encoders, le_winner = pickle.load(open("IPL/models/team_winning_prediction_model.pkl", "rb"))
 
 def predict_ipl(data):
     try:

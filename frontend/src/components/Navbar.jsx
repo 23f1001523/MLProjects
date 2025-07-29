@@ -24,7 +24,7 @@ function Navbar() {
             <Link className="nav-link" to="/iplpredictors">IPL Predictor</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/recommenders">Recommenders</Link>
+            <Link className="nav-link" to="/churnpredictor">Churn Customer Predictor</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/documentation">Documentation</Link>
