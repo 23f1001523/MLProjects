@@ -12,6 +12,7 @@ TEAM_NAME_MAP = {
     'RCB': 'Royal Challengers Bengaluru',
     'Punjab Kings': 'Punjab Kings',
     'Lucknow Super Giants': 'Lucknow Super Giants',
+    'Gujarat Lions': 'Gujarat Titans',
     'Gujarat Titans': 'Gujarat Titans',
     'Chennai Super Kings': 'Chennai Super Kings',
     'Mumbai Indians': 'Mumbai Indians',
@@ -23,7 +24,6 @@ TEAM_NAME_MAP = {
 for col in ['team1', 'team2', 'toss_winner', 'winner']:
     if col in matches.columns:
         matches[col] = matches[col].replace(TEAM_NAME_MAP)
-
 
 
 def get_dropdown_options():

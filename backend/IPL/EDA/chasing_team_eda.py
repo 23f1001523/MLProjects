@@ -1,49 +1,6 @@
 import pandas as pd
 import numpy as np
 
-# # Standardize team names to 2025 teams
-# TEAM_NAME_MAP = {
-#     'Delhi Daredevils': 'Delhi Capitals',
-#     'Kings XI Punjab': 'Punjab Kings',
-#     'Rising Pune Supergiants': 'Rising Pune Supergiant',
-#     'Rising Pune Supergiant': 'Rising Pune Supergiant',
-#     'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-#     'Royal Challengers': 'Royal Challengers Bengaluru',
-#     'RCB': 'Royal Challengers Bengaluru',
-#     'Punjab Kings': 'Punjab Kings',
-#     'Lucknow Super Giants': 'Lucknow Super Giants',
-#     'Gujarat Titans': 'Gujarat Titans',
-#     'Chennai Super Kings': 'Chennai Super Kings',
-#     'Mumbai Indians': 'Mumbai Indians',
-#     'Kolkata Knight Riders': 'Kolkata Knight Riders',
-#     'Sunrisers Hyderabad': 'Sunrisers Hyderabad',
-#     'Rajasthan Royals': 'Rajasthan Royals'
-# }
-
-# # Load data
-# matches = pd.read_csv("./ipl/data/matches.csv")
-# deliveries = pd.read_csv("./ipl/data/deliveries.csv")
-
-# # Rename id to match_id
-# if "id" in matches.columns:
-#     matches.rename(columns={"id": "match_id"}, inplace=True)
-
-# # Ensure consistent types
-# matches["match_id"] = matches["match_id"].astype(int)
-# deliveries["match_id"] = deliveries["match_id"].astype(int)
-
-# # Standardize team names in matches
-# for col in ['team1', 'team2', 'toss_winner', 'winner']:
-#     if col in matches.columns:
-#         matches[col] = matches[col].replace(TEAM_NAME_MAP)
-
-# # Standardize team names in deliveries
-# for col in ['batting_team', 'bowling_team']:
-#     if col in deliveries.columns:
-#         deliveries[col] = deliveries[col].replace(TEAM_NAME_MAP)
-
-# Merge data
-# merged_df = pd.merge(deliveries, matches, on='match_id')
 
 merged_df=pd.read_csv('IPL/data/processed_data/ipl_merged_data.csv')
 # Filter only second innings

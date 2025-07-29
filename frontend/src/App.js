@@ -11,6 +11,8 @@ import Recommenders from "./pages/Recommenders";
 import Documentation from "./pages/Documentation";
 import IPLPage from "./pages/IPLPage"; // <-- Make sure this is imported
 import MatchSummary from "./components/MatchSummary";
+import TeamStats from "./components/TeamStats";
+import PlayerStats from "./components/PlayerStats";
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
             <Route path="team-win" element={<TeamWinPredictor />} />
             <Route path="chasing-team" element={<ChasingTeamPredictor />} />
             <Route path="matchsummary" element={<MatchSummary />} />
-            {/* <Route path="player-details" element={<PlayerDetails />} /> */}
+            <Route path="teamstats" element={<TeamStats />} />
+            <Route path="playerstats" element={<PlayerStats />} />
           </Route>
           <Route path="/recommenders" element={<Recommenders />} />
           <Route path="/documentation" element={<Documentation />} />

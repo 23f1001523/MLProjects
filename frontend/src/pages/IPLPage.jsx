@@ -28,8 +28,13 @@ function IPLPage() {
               <i className="bi bi-calendar-event-fill me-2"></i> Match Details
             </Link>
           </li>
+            <li className="list-group-item">
+            <Link className="nav-link" to="teamstats">
+              <i className="bi bi-calendar-event-fill me-2"></i> Team Details
+            </Link>
+          </li>
           <li className="list-group-item">
-            <Link className="nav-link" to="player-details">
+            <Link className="nav-link" to="playerstats">
               <i className="bi bi-person-lines-fill me-2"></i> Player Details
             </Link>
           </li>

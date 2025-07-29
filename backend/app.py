@@ -1,13 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
+import pandas as pd
 from IPL.utils.options import get_dropdown_options
 # from utils.churn_predictor import predict_churn
 from IPL.utils.team_winning_predictor import predict_ipl
 from IPL.utils.chasing_team_predictor import run_second_innings_prediction
 from IPL.utils.match_details import getMatchSummary
+from IPL.utils.teams_stats import getTeamSummary
+from IPL.utils.players_stats import get_player_summary
 # from utils.recommender import recommend_movies
-
 
 app = Flask(__name__)
 CORS(app)
@@ -60,18 +61,38 @@ def match_summary(match_id):
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": str(e)}), 500
-# @app.route("/api/predict/churn", methods=["POST"])
-# def churn():
-#     data = request.json
-#     result = predict_churn(data)
-#     return jsonify(result)
+    
+@app.route('/ipl/teamstats/<team_name>')
+def team_summary(team_name):
+    try:
+        summary = getTeamSummary(team_name)
+        if not summary:
+            return jsonify({"error": "Team not found"}), 404
+        return jsonify(summary)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route("/ipl/playerstats/<string:player_name>")
+def player_summary(player_name):
+    summary = get_player_summary(player_name)
+    if "error" in summary:
+        return jsonify(summary), 404
+    return jsonify(summary)
 
+@app.route("/api/player-options")
+def player_options():
+    deliveries = pd.read_csv('./ipl/data/raw_data/deliveries.csv')
+    players = sorted(pd.unique(deliveries[['batter', 'bowler']].values.ravel()))
+    return jsonify(players)
 
-# @app.route("/api/recommend/movies", methods=["POST"])
-# def recommend():
-#     data = request.json
-#     result = recommend_movies(data.get("movie"))
-#     return jsonify(result)
+@app.route("/api/matches", methods=["GET"])
+def match_options():
+    matches = pd.read_csv('./ipl/data/processed_data/ipl_merged_data.csv')
+    
+    match_list = sorted(int(x) for x in matches["match_number"].unique())
+    
+    return jsonify(match_list)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

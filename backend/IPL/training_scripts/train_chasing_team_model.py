@@ -7,8 +7,8 @@ import pickle
 # Load the processed match progress data
 df = pd.read_csv("./ipl/data/processed_data/processed_match_data.csv", low_memory=False)
 
-# Preview columns to ensure correctness (optional)
-print("🧾 Columns in DataFrame:", df.columns.tolist())
+# # Preview columns to ensure correctness (optional)
+# print("🧾 Columns in DataFrame:", df.columns.tolist())
 
 # Features and target
 X = df.drop(columns=['won'])  # All columns except 'won' are features

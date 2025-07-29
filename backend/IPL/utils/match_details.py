@@ -2,60 +2,16 @@ import pandas as pd
 import numpy as np
 
 
-# def mergeData():
-#     TEAM_NAME_MAP = {
-#         'Delhi Daredevils': 'Delhi Capitals',
-#         'Kings XI Punjab': 'Punjab Kings',
-#         'Rising Pune Supergiants': 'Rising Pune Supergiant',
-#         'Rising Pune Supergiant': 'Rising Pune Supergiant',
-#         'Royal Challengers Bangalore': 'Royal Challengers Bengaluru',
-#         'Royal Challengers': 'Royal Challengers Bengaluru',
-#         'RCB': 'Royal Challengers Bengaluru',
-#         'Punjab Kings': 'Punjab Kings',
-#         'Lucknow Super Giants': 'Lucknow Super Giants',
-#         'Gujarat Titans': 'Gujarat Titans',
-#         'Chennai Super Kings': 'Chennai Super Kings',
-#         'Mumbai Indians': 'Mumbai Indians',
-#         'Kolkata Knight Riders': 'Kolkata Knight Riders',
-#         'Sunrisers Hyderabad': 'Sunrisers Hyderabad',
-#         'Rajasthan Royals': 'Rajasthan Royals'
-#     }
-
-#     # Load data
-#     matches = pd.read_csv("./data/matches.csv")
-#     deliveries = pd.read_csv("./data/deliveries.csv")
-
-#     matches['id'] = matches['id'] - matches['id'].min() + 1
-#     deliveries['match_id'] = deliveries['match_id'] - deliveries['match_id'].min() + 1
-
-#     if "id" in matches.columns:
-#         matches.rename(columns={"id": "match_id"}, inplace=True)
-
-#     matches["match_id"] = matches["match_id"].astype(int)
-#     deliveries["match_id"] = deliveries["match_id"].astype(int)
-
-#     for col in ['team1', 'team2', 'toss_winner', 'winner']:
-#         if col in matches.columns:
-#             matches[col] = matches[col].replace(TEAM_NAME_MAP)
-
-#     for col in ['batting_team', 'bowling_team']:
-#         if col in deliveries.columns:
-#             deliveries[col] = deliveries[col].replace(TEAM_NAME_MAP)
-
-#     merged_df = pd.merge(deliveries, matches, on='match_id')
-    
-#     merged_df.to_csv('/data/merged_df')
-
 def getMatchSummary(match_id):
     
     merged_df=pd.read_csv('IPL/data/processed_data/ipl_merged_data.csv')
   
-    match_df = merged_df[merged_df['match_id'] == match_id]
+    match_df = merged_df[merged_df['match_number'] == match_id]
 
     if match_df.empty:
         return None
 
-    match_info = match_df[match_df['match_id'] == match_id].iloc[0]
+    match_info = match_df[match_df['match_number'] == match_id].iloc[0]
     team1 = match_info['team1']
     team2 = match_info['team2']
 

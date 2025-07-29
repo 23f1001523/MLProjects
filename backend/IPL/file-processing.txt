@@ -1,5 +1,0 @@
-#First Run this command for creating dataset with required features
-python3 ./IPL/EDA/chasing_team_eda.py
-
-#run this command for creating training and creating model
-python3 ./IPL/training/train_chasing_team_model.py
