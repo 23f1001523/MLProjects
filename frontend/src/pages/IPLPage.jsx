@@ -24,7 +24,7 @@ function IPLPage() {
             </Link>
           </li>
           <li className="list-group-item">
-            <Link className="nav-link" to="match-details">
+            <Link className="nav-link" to="matchsummary">
               <i className="bi bi-calendar-event-fill me-2"></i> Match Details
             </Link>
           </li>

@@ -5,6 +5,7 @@ from IPL.utils.options import get_dropdown_options
 # from utils.churn_predictor import predict_churn
 from IPL.utils.team_winning_predictor import predict_ipl
 from IPL.utils.chasing_team_predictor import run_second_innings_prediction
+from IPL.utils.match_details import getMatchSummary
 # from utils.recommender import recommend_movies
 
 
@@ -42,6 +43,23 @@ def second_innings_route():
     except Exception as e:
         print("Error:", e)
         return jsonify({"error": str(e)}), 400
+    
+@app.route('/ipl/matchsummary/<int:match_id>')
+def match_summary(match_id):
+    try:
+        result = getMatchSummary(match_id)
+        print("Received data:", result)
+
+        if result is None:
+            return jsonify({"error": "Match not found"}), 404
+
+        if "error" in result:
+            return jsonify(result), 400
+
+        return jsonify(result)
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"error": str(e)}), 500
 # @app.route("/api/predict/churn", methods=["POST"])
 # def churn():
 #     data = request.json

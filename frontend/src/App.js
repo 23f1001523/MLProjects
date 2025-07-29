@@ -10,6 +10,7 @@ import ChasingTeamPredictor from "./components/ChasingTeamPredictor";
 import Recommenders from "./pages/Recommenders";
 import Documentation from "./pages/Documentation";
 import IPLPage from "./pages/IPLPage"; // <-- Make sure this is imported
+import MatchSummary from "./components/MatchSummary";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="/iplpredictors" element={<IPLPage />}>
             <Route path="team-win" element={<TeamWinPredictor />} />
             <Route path="chasing-team" element={<ChasingTeamPredictor />} />
-            {/* <Route path="match-details" element={<MatchDetails />} /> */}
+            <Route path="matchsummary" element={<MatchSummary />} />
             {/* <Route path="player-details" element={<PlayerDetails />} /> */}
           </Route>
           <Route path="/recommenders" element={<Recommenders />} />

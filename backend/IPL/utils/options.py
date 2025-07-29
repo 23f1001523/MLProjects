@@ -1,6 +1,6 @@
 import pandas as pd
 
-matches = pd.read_csv("./data/matches.csv")
+matches = pd.read_csv("./ipl/data/raw_data/matches.csv")
 
 TEAM_NAME_MAP = {
     'Delhi Daredevils': 'Delhi Capitals',
